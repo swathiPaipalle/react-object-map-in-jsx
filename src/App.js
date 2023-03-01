@@ -2,22 +2,44 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const employee = {
+    id: 1,
+    name: 'Bobby Hadz',
+    salary: 100,
+    devices: {
+      monitors: 'four',
+      keyBoard: 'two'
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h2>Keys</h2>
+      {/* 👇️ iterate object KEYS */}
+      {Object.keys(employee).map((key, index) => {
+        const devices = employee[key];
+        console.log('key', devices, typeof devices)
+        return (
+          <ul key={index}>
+            <li>{key}</li>
+            {
+              typeof devices === 'object' && Object.keys(devices).map((key1, index1) => <li>{key1}</li>)
+            }
+          </ul>
+        )
+      })}
+
+      <hr />
+      <h2>Values</h2>
+      {/* 👇️ iterate object VALUES */}
+      {Object.values(employee).map((value, index) => {
+        return (
+          <ul key={index}>
+            {typeof value !== 'object' && <li>{value}</li>}
+            {typeof value === 'object' && Object.keys(value).map((value1, index1) => <li>{value[value1]}</li>)}
+          </ul>
+        );
+      })}
     </div>
   );
 }
